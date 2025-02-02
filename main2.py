@@ -1,4 +1,12 @@
 # import resources
+def money_input():
+    pennies = int(input("Pennies? ")) * 0.01
+    nickles = int(input("nickles? ")) * 0.05
+    dimes = int(input("dimes? ")) * 0.10
+    quarter = int(input("quarter? ")) * 0.25
+
+    return pennies + nickles + dimes + quarter
+
 MENU = {
     "espresso": {
         "ingredients": {
@@ -63,23 +71,25 @@ while contd:
             # break
         else:
             print("Wrong Passcode...")
+    elif user_choice == 'tip' or user_choice == 'donate':
+        money_machine += money_input()
+        print(f"thanks for {user_choice}")
     elif user_choice == 'report':
         print(
             f"Water: {resources["water"]}ml \nMilk: {resources["milk"]}ml \nCoffee: {resources["coffee"]}g \nMoney: ${money_machine}")
-    elif MENU[user_choice]["ingredients"]["water"] < resources["water"] and MENU[user_choice]["ingredients"]["coffee"] < \
-            resources["coffee"] and MENU[user_choice]["ingredients"]["milk"] < resources["milk"]:
-        pennies = int(input("Pennies? ")) * 0.01
-        nickles = int(input("nickles? ")) * 0.05
-        dimes = int(input("dimes? ")) * 0.10
-        quarter = int(input("quarter? ")) * 0.25
-
-        money_user = pennies + nickles + dimes + quarter
+    elif MENU[user_choice]["ingredients"]["water"] < resources["water"] and MENU[user_choice]["ingredients"]["coffee"] < resources["coffee"] and MENU[user_choice]["ingredients"]["milk"] < resources["milk"]:
+        # pennies = int(input("Pennies? ")) * 0.01
+        # nickles = int(input("nickles? ")) * 0.05
+        # dimes = int(input("dimes? ")) * 0.10
+        # quarter = int(input("quarter? ")) * 0.25
+        #
+        # money_user = pennies + nickles + dimes + quarter
         # money_not_sufficient = "Sorry that's not enough money. Money refunded."
+        money_user = money_input()
 
         if money_user < MENU[user_choice]["cost"]:
             print("Sorry that's not enough money. Money refunded.")
-            print(
-                f"the money difference between actual cost of {user_choice} and your given money is {MENU[user_choice]["cost"] - money_user}")
+            print(f"the money difference between actual cost of {user_choice} and your given money is {MENU[user_choice]["cost"] - money_user}")
         else:
             # if MENU[user_choice]["ingredients"]["water"] < resources["water"] and MENU[user_choice]["ingredients"]["coffee"] < resources["coffee"] and MENU[user_choice]["ingredients"]["milk"] < resources["milk"]:
             resources["water"] -= MENU[user_choice]["ingredients"]["water"]
